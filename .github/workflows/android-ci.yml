@@ -21,6 +21,8 @@ jobs:
     - run: gradle --version
     - run: gradle wrapper
     - run: bash ./gradlew build
+    - run: echo $GITHUB_ENV
+    - run: which git
     - run: python3 renameartifact.py
     - run: tree .
     - run: echo $GITHUB_ENV

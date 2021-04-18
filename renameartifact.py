@@ -13,7 +13,7 @@ binary_basename = 'adbcopypaste'
 def get_short_commit_hash():
     command = f'git rev-parse --short HEAD'
     ps = subprocess.Popen(
-        args=command,
+        command,
         cwd=os.path.dirname(__file__),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
