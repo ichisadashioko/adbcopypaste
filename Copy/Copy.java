@@ -2,19 +2,12 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Copy {
     public static void main(String[] args) {
         int returncode = 0;
 
         try {
-            // for(int i = 0; i < args.length; i++){
-            //     System.out.println(i + " - " + args[i]);
-            // }
-
             if (args.length < 1) {
                 System.err.println("file path of data to be copied was not supplied");
                 returncode = 1;
@@ -29,8 +22,7 @@ public class Copy {
                         System.err.println(text_data_filepath + " is not a normal file");
                         returncode = 1;
                     } else {
-                        Path path = Paths.get(text_data_filepath);
-                        int text_data_file_size = (int) Files.size(path);
+                        int text_data_file_size = (int) text_data_file.length();
                         if (text_data_file_size < 1) {
                             System.err.println(text_data_filepath + " is empty");
                             returncode = 1;

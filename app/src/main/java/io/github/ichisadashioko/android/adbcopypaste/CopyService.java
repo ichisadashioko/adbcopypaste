@@ -9,9 +9,6 @@ import android.content.Intent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CopyService extends IntentService {
     public CopyService() {
@@ -33,8 +30,7 @@ public class CopyService extends IntentService {
                     System.err.println(text_data_filepath + " is not a normal file");
                     //                returncode = 1;
                 } else {
-                    Path path = Paths.get(text_data_filepath);
-                    int text_data_file_size = (int) Files.size(path);
+                    int text_data_file_size = (int) text_data_file.length();
                     if (text_data_file_size < 1) {
                         System.err.println(text_data_filepath + " is empty");
                         //                    returncode = 1;
