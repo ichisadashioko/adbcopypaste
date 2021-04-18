@@ -15,20 +15,15 @@ jobs:
       with:
         java-version: 1.8
 
-    - name: install linux tools
-      run: sudo apt install -y tree python3
-
-    - name: show directory structure
-      run: tree .
-
-    - name: Locate Gradle
-      run: which gradle
-
-    - name: Setup Gradle
-      run: gradle wrapper
-
-    - name: Build project
-      run: bash ./gradlew build
+    - run: sudo apt install -y tree python3
+    - run: tree .
+    - run: which gradle
+    - run: gradle --version
+    - run: gradle wrapper
+    - run: bash ./gradlew build
+    - run: python3 renameartifact.py
+    - run: tree .
+    - run: echo $GITHUB_ENV
 
     - uses: actions/upload-artifact@v2
       with:
