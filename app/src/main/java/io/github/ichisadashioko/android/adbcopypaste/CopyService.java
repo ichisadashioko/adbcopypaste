@@ -1,6 +1,9 @@
 package io.github.ichisadashioko.android.adbcopypaste;
 
 import android.app.IntentService;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 
 import java.io.File;
@@ -45,6 +48,10 @@ public class CopyService extends IntentService {
 
                         String text_content = new String(text_file_bytes, StandardCharsets.UTF_8);
                         System.out.println(text_content);
+
+                        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clipData = ClipData.newPlainText("CopyService", text_content);
+                        clipboardManager.setPrimaryClip(clipData);
                     }
                 }
             }
