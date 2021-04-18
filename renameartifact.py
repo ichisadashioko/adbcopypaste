@@ -1,7 +1,9 @@
 import os
 import sys
+import datetime
 import subprocess
 
+module_parent = os.path.dirname(os.path.abspath(__file__))
 built_apk_filepath = 'app/build/outputs/apk/debug/app-debug.apk'
 
 if not os.path.exists(built_apk_filepath):
@@ -11,12 +13,16 @@ binary_basename = 'adbcopypaste'
 
 
 def get_short_commit_hash():
-    command = f'git rev-parse --short HEAD'
+    command = 'git rev-parse --short HEAD'
+    print(command)
+    cwd = module_parent
+    print('cwd', cwd)
     ps = subprocess.Popen(
-        command,
-        cwd=os.path.dirname(__file__),
+        args=command,
+        cwd=cwd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        shell=True,
     )
 
     stdout, stderr = ps.communicate(timeout=2)
@@ -42,7 +48,22 @@ def get_short_commit_hash():
 
 
 short_commit_hash = get_short_commit_hash()
-built_time = os.path.getmtime(built_apk_filepath)
 print('short_commit_hash', short_commit_hash)
-print('built_time', built_time)
-print('GITHUB_ENV', os.environ['GITHUB_ENV'])
+
+built_time_float = os.path.getmtime(built_apk_filepath)
+print('built_time_float', built_time_float)
+
+# TODO check if timezone will affect the parsing
+built_time_str = datetime.datetime.fromtimestamp(built_time_float).strftime('%Y%m%d')
+
+# TODO hack on the update-artifact codebase to update the apk without being zipped the second time as an apk file is a zip archive
+artifact_name = f'{binary_basename}-{built_time_str}-{short_commit_hash}'
+artifact_filename = f'{artifact_name}.apk'
+artifact_filepath = os.path.join(module_parent, artifact_filename)
+os.rename(built_apk_filepath, artifact_filepath)
+
+if 'GITHUB_ENV' in os.environ:
+    print('GITHUB_ENV', os.environ['GITHUB_ENV'])
+    # TODO write artifact file name / path to GITHUB_ENV
+else:
+    print('Cannot find GITHUB_ENV variable. Probably not running in Github Actions environment')

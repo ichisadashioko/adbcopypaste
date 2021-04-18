@@ -13,3 +13,4 @@ gradle
 *.dex
 classes
 .classpath
+*.apk
