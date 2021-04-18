@@ -68,12 +68,10 @@ if 'GITHUB_ENV' in os.environ:
     # TODO write artifact file name / path to GITHUB_ENV
     with open(github_env_setter_filepath, mode='ab') as outfile:
         outfile.write(
-            f'ADBCOPYPASTE_ARTIFACT_NAME={artifact_name}'.encode('utf-8')
-        )
-
-    with open(github_env_setter_filepath, mode='ab') as outfile:
-        outfile.write(
-            f'ADBCOPYPASTE_ARTIFACT_FILENAME={artifact_filename}'.encode('utf-8')
+            (
+                f'ADBCOPYPASTE_ARTIFACT_NAME={artifact_name}\n' +
+                f'ADBCOPYPASTE_ARTIFACT_FILENAME={artifact_filename}'
+            ).encode('utf-8')
         )
 else:
     print('Cannot find GITHUB_ENV variable. Probably not running in Github Actions environment')
