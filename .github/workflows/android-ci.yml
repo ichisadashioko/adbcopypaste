@@ -29,5 +29,5 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: $ADBCOPYPASTE_ARTIFACT_NAME
-        path: $ADBCOPYPASTE_ARTIFACT_FILENAME
+        name: ${{ env.ADBCOPYPASTE_ARTIFACT_NAME }}
+        path: ${{ env.ADBCOPYPASTE_ARTIFACT_FILENAME }}
