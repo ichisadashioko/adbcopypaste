@@ -21,12 +21,13 @@ jobs:
     - run: gradle --version
     - run: gradle wrapper
     - run: bash ./gradlew build
-    - run: echo $GITHUB_ENV
     - run: which git
+    - run: printenv
     - run: python3 renameartifact.py
+    - run: printenv
     - run: tree .
-    - run: echo $GITHUB_ENV
 
     - uses: actions/upload-artifact@v2
       with:
-        path: app/build/outputs/apk/debug/app-debug.apk
+        name: $ADBCOPYPASTE_ARTIFACT_NAME
+        path: $ADBCOPYPASTE_ARTIFACT_FILENAME
