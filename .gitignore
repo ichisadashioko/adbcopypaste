@@ -11,3 +11,5 @@ gradle
 .vscode
 *.class
 *.dex
+classes
+.classpath
