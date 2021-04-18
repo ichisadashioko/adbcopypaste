@@ -9,3 +9,5 @@ captures
 .cxx
 gradle
 .vscode
+*.class
+*.dex
