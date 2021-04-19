@@ -21,3 +21,5 @@ adb shell rm /data/local/tmp/Copy.dex
 adb push Copy.dex /data/local/tmp/
 
 adb shell CLASSPATH=/data/local/tmp/Copy.dex app_process / Copy /data/local/tmp/utf8.txt
+
+CLASSPATH=/data/local/tmp/scrcpy-server app_process / com.genymobile.scrcpy.Copy /data/local/tmp/utf8.txt
