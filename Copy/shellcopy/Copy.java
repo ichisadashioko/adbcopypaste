@@ -1,10 +1,14 @@
-// package io.github.ichsadashioko.android.adbcopypaste;
+package shellcopy;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 
-public class Copy {
+public final class Copy {
+    private static final ServiceManager SERVICE_MANAGER = new ServiceManager();
+
     public static void main(String[] args) {
+
         int returncode = 0;
 
         try {
@@ -37,6 +41,16 @@ public class Copy {
                             String text_content =
                                     new String(text_file_bytes, StandardCharsets.UTF_8);
                             System.out.println(text_content);
+
+                            // scrcpy clipboard code
+                            ClipboardManager clipboardManager =
+                                    SERVICE_MANAGER.getClipboardManager();
+                            if (clipboardManager != null) {
+                                clipboardManager.setText(text_content);
+                            } else {
+                                System.err.println(
+                                        "No clipboard manager, copy-paste between device and computer will not work");
+                            }
                         }
                     }
                 }
